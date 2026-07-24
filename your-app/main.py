@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field  # 受け取るデータの形をチェッ
 
 # --- FastAPIアプリ ---
 # このappが、Webアプリ全体の本体になる
-app = FastAPI(title="TODO App")
+app = FastAPI(title="Task Schedule")
 
 # CORS設定: 別のアドレスで動くフロント（ブラウザの画面）からの通信を許可する
 # allow_origins=["*"] は「どこからのアクセスでもOK」という意味（学習用の設定）
@@ -27,7 +27,7 @@ app.add_middleware(
 
 # --- データベース設定 ---
 # データを保存するファイルの名前。アプリと同じフォルダに todo.db が作られる
-DATABASE = "todo.db"
+DATABASE = "Task Schedule.db"
 
 
 def init_db():
@@ -39,9 +39,13 @@ def init_db():
     #   title : TODOの内容（空はNG）
     #   done  : 完了したかどうか（0=未完了, 1=完了）
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS todos (
+        CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
+            category TEXT NOT NULL,
+            subject TEXT,
+            date TEXT NOT NULL,
+            time TEXT,
             done INTEGER DEFAULT 0
         )
     """)
@@ -58,6 +62,10 @@ class TodoCreate(BaseModel):
     # 新しいTODOを作るときに受け取るデータ
     # title は1文字以上100文字以下の文字列でなければならない
     title: str = Field(min_length=1, max_length=100)
+    category: str
+    subject: str | None = None
+    date: str
+    time: str | None = None
 
 
 class TodoUpdate(BaseModel):
