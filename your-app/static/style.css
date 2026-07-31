@@ -75,40 +75,38 @@ body {
 }
 
 /* テキスト入力欄 */
-.todo-input {
-  flex: 1; /* 余った横幅をすべて使って広がる（ボタンの残り全部） */
+input,
+select {
+  flex: 1;
   padding: 12px 16px;
-  border: 2px solid #d1d5db; /* グレーの枠線 */
+  border: 2px solid #d1d5db;
   border-radius: 8px;
   font-size: 16px;
-  outline: none; /* クリック時にブラウザが出す枠を消す（下で自前の色をつける） */
-  transition: border-color 0.3s; /* 枠線の色が0.3秒かけてなめらかに変わる */
+  outline: none;
+  transition: border-color 0.3s;
 }
-
 /* :focus = その要素を選択中（クリックや入力中）のときだけ適用 */
-.todo-input:focus {
-  border-color: #2563eb; /* 入力中は枠線を青くする */
+input:focus,
+select:focus {
+  border-color: #2563eb;
 }
-
 /* 追加ボタン */
-.todo-button {
+button {
   padding: 12px 24px;
   background-color: #2563eb;
   color: white;
-  border: none; /* 枠線なし */
+  border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
-  cursor: pointer; /* マウスを乗せると指のカーソルになる */
-  transition: background-color 0.3s; /* 色の変化をなめらかに */
-  white-space: nowrap; /* ボタンの文字を途中で改行させない */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  white-space: nowrap;
 }
 
-/* :hover = マウスを乗せたときだけ適用 */
-.todo-button:hover {
-  background-color: #1d4ed8; /* 少し濃い青にして「押せる」感を出す */
+button:hover {
+  background-color: #1d4ed8;
 }
-
 /* --- TODOリスト --- */
 .todo-list {
   list-style: none; /* <li>の先頭につく「・」を消す */

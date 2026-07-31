@@ -1,44 +1,73 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TODO App</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-  <body>
-    <!-- ヘッダー -->
-    <header class="header">
-      <h1>TODO App</h1>
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Schedule</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 
-    <!-- メインコンテンツ -->
-    <main class="todo-card">
-      <!-- エラーメッセージ表示エリア -->
-      <div id="error-message" class="error-message" style="display: none"></div>
+<body>
 
-      <!-- TODO入力エリア -->
-      <form id="todo-form" class="input-area">
+<header class="header">
+    <h1>📚 Task Schedule</h1>
+</header>
+
+<main class="todo-card">
+
+    <div id="error-message" class="error-message" style="display:none;"></div>
+
+    <form id="task-form" class="input-area">
+
         <input
-          type="text"
-          id="todo-input"
-          class="todo-input"
-          placeholder="新しいTODOを入力..."
-          maxlength="100"
-          autocomplete="off"
-        />
-        <button type="submit" class="todo-button">追加</button>
-      </form>
+            type="text"
+            id="title"
+            placeholder="課題名・予定名"
+            maxlength="100"
+            required
+        >
 
-      <!-- TODOリスト -->
-      <ul id="todo-list" class="todo-list"></ul>
-    </main>
+        <select id="category">
+            <option value="課題">課題</option>
+            <option value="予定">予定</option>
+        </select>
 
-    <!-- フッター -->
-    <footer class="footer">
-      <p>&copy; 2026 TODO App</p>
-    </footer>
+        <input
+            type="text"
+            id="subject"
+            placeholder="教科（予定なら空欄でもOK）"
+        >
 
-    <script src="/app.js"></script>
-  </body>
+        <input
+            type="date"
+            id="date"
+            required
+        >
+
+        <input
+            type="time"
+            id="time"
+        >
+
+        <button type="submit">
+            追加
+        </button>
+
+    </form>
+
+    <hr>
+
+    <h2>一覧</h2>
+
+    <ul id="task-list"></ul>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 Task Schedule</p>
+</footer>
+
+<script src="/app.js"></script>
+
+</body>
 </html>
