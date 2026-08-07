@@ -64,16 +64,16 @@ class TaskCreate(BaseModel):
     # タイトル（1～100文字）
     title: str = Field(min_length=1, max_length=100)
 
-    # 「課題」または「予定」
+    # 「課題」「予定」
     category: str
 
-    # 教科名（予定の場合は空でもOK）
+    # 教科名など詳細（空欄でも可）
     subject: str | None = None
 
     # 日付
     date: str
 
-    # 時間（課題なら空でもOK）
+    # 時間（空欄でも可）
     time: str | None = None
 
 
