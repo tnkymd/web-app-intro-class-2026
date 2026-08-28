@@ -207,7 +207,6 @@ function showError(message) {
 // ============================================================
 
 document.getElementById("task-form").addEventListener("submit", function (e) {
-
   e.preventDefault();
   addTask();
 
