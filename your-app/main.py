@@ -39,16 +39,18 @@ def init_db():
     #   title : TODOの内容（空はNG）
     #   done  : 完了したかどうか（0=未完了, 1=完了）
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS tasks (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            category TEXT NOT NULL,
-            subject TEXT,
-            date TEXT NOT NULL,
-            time TEXT,
-            done INTEGER DEFAULT 0
-        )
-    """)
+    CREATE TABLE IF NOT EXISTS tasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        category TEXT NOT NULL,
+        subject TEXT,
+        month INTEGER NOT NULL,
+        day INTEGER NOT NULL,
+        time TEXT,
+        location TEXT,
+        color TEXT DEFAULT '#2563eb',
+        done INTEGER DEFAULT 0
+)    """)
     conn.commit()  # 変更を確定して保存する
     conn.close()  # 接続を閉じる
 
@@ -59,34 +61,26 @@ def init_db():
 
 
 class TaskCreate(BaseModel):
-    # 新しい課題・予定を作るときに受け取るデータ
-
-    # タイトル（1～100文字）
     title: str = Field(min_length=1, max_length=100)
-
-    # 「課題」「予定」
     category: str
-
-    # 教科名など詳細（空欄でも可）
     subject: str | None = None
-
-    # 日付
-    date: str
-
-    # 時間（空欄でも可）
+    month: int
+    day: int
     time: str | None = None
-
+    location: str | None = None
+    color: str = "#2563eb"
 
 class TaskUpdate(BaseModel):
-    # 更新するときに受け取るデータ
-
     title: str
     category: str
     subject: str | None = None
-    date: str
+    month: int
+    day: int
     time: str | None = None
+    location: str | None = None
+    color: str = "#2563eb"
     done: bool
-    # --- APIエンドポイント ---
+        # --- APIエンドポイント ---
 # @app.get / @app.post などの飾り（デコレータ）で、
 # 「どのURLに、どの種類のリクエストが来たら、この関数を動かすか」を決める。
 
@@ -100,16 +94,19 @@ def get_tasks():
 
     # tasksテーブルの全データを日付・時間順に取得
     cursor.execute("""
-        SELECT
-            id,
-            title,
-            category,
-            subject,
-            date,
-            time,
-            done
-        FROM tasks
-        ORDER BY date, time
+    SELECT
+        id,
+        title,
+        category,
+        subject,
+        month,
+        day,
+        time,
+        location,
+        color,
+        done
+    FROM tasks
+    ORDER BY month, day, time
     """)
 
     rows = cursor.fetchall()
@@ -122,9 +119,12 @@ def get_tasks():
             "title": row[1],
             "category": row[2],
             "subject": row[3],
-            "date": row[4],
-            "time": row[5],
-            "done": bool(row[6]),
+            "month": row[4],
+            "day": row[5],
+            "time": row[6],
+            "location": row[7],
+            "color": row[8],
+            "done": bool(row[9]),
         }
         for row in rows
     ]

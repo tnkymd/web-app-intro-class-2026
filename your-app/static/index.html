@@ -17,50 +17,94 @@
 
     <div id="error-message" class="error-message" style="display:none;"></div>
 
-    <form id="task-form" class="input-area">
+<form id="task-form" class="input-area">
 
+    <input
+        type="text"
+        id="title"
+        placeholder="題名"
+        maxlength="100"
+        required
+    >
+
+    <select id="category">
+        <option value="課題">課題</option>
+        <option value="予定">予定</option>
+    </select>
+
+    <input
+        type="text"
+        id="subject"
+        placeholder="詳細"
+    >
+
+    <div class="date-area">
         <input
-            type="text"
-            id="title"
-            placeholder="課題名・予定名"
-            maxlength="100"
+            type="number"
+            id="month"
+            placeholder="月"
+            min="1"
+            max="12"
             required
         >
 
-        <select id="category">
-            <option value="課題">課題</option>
-            <option value="予定">予定</option>
-        </select>
+        <span>月</span>
 
         <input
-            type="text"
-            id="subject"
-            placeholder="教科や予定（空欄可）"
-        >
-
-        <input
-            type="date"
-            id="date"
+            type="number"
+            id="day"
+            placeholder="日"
+            min="1"
+            max="31"
             required
         >
 
+        <span>日</span>
+    </div>
+
+    <input
+        type="time"
+        id="time"
+    >
+
+    <input
+        type="text"
+        id="location"
+        placeholder="場所"
+    >
+
+    <div class="color-area">
+        <label for="color">色：</label>
         <input
-            type="time"
-            id="time"
+            type="color"
+            id="color"
+            value="#2563eb"
         >
+    </div>
 
-        <button type="submit">
-            追加
-        </button>
+    <button type="submit">
+        追加
+    </button>
 
-    </form>
-
+</form>
     <hr>
 
     <h2>一覧</h2>
 
-    <ul id="task-list"></ul>
+<div class="sort-area">
+    <label for="sort-order">並び順：</label>
 
+    <select id="sort-order">
+        <option value="asc">日付が近い順</option>
+        <option value="desc">日付が遠い順</option>
+    </select>
+</div>
+
+<h3>課題</h3>
+<ul id="task-list-task" class="todo-list"></ul>
+
+<h3>予定</h3>
+<ul id="task-list-event" class="todo-list"></ul>
 </main>
 
 <footer class="footer">
